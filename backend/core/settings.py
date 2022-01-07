@@ -15,7 +15,7 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if TYPE_ENV == "dev" else False
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
@@ -29,8 +29,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "rest_framework.authtoken",
     "corsheaders",
+    "drf_yasg",
     "user",
     "state_machine",
 ]
@@ -67,15 +67,14 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
     ],
 }
 
 
 # Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     "default": {
@@ -89,7 +88,6 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -107,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
@@ -118,12 +115,10 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -132,3 +127,9 @@ AUTH_USER_MODEL = "user.User"
 
 
 AUTHENTICATION_BACKENDS = ["user.auth_backend.AuthBackend", "django.contrib.auth.backends.ModelBackend"]
+
+
+SWAGGER_SETTINGS = {
+    "USE_SESSION_AUTH": False,
+    "SECURITY_DEFINITIONS": {"apiKey": {"type": "apiKey", "name": "Authorization", "in": "header"}},
+}

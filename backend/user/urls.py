@@ -1,20 +1,12 @@
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
+from django.urls import path, re_path
 
 from user import views
 
 urlpatterns = [
-    path("signup/", views.Signup.as_view(), name="signup"),
-    path("all/", views.All.as_view(), name="all"),
+    path("signup/", views.SignUp.as_view(), name="Sign Up"),
+    path("user/me/", views.UserMe.as_view(), name="User Me"),
+    path("user/edit/", views.UserEdit.as_view(), name="User Edit"),
+    path("user/change-passoword/", views.UserChangePassword.as_view(), name="User Change Password"),
+    path("token/", views.DecoratedTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", views.DecoratedTokenRefreshView.as_view(), name="token_refresh"),
 ]
-
-"""
-path("login/", views.Login.as_view(), name="login"),
-path("logout/", views.Logout.as_view(), name="logout"),
-path("user/me/", views.UserMe.as_view(), name="user-me"),
-path("user/edit/", views.UserEdit.as_view(), name="user-edit"),
-path("user/desactivate/", views.UserDesactivate.as_view(), name="user-desactivate"),
-"""
-
-
-urlpatterns = format_suffix_patterns(urlpatterns)
