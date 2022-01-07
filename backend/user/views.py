@@ -125,6 +125,33 @@ class UserChangePassword(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class UserDesactivate(APIView):
+    """
+    Desativa o usuário
+
+    Desativa o usuário que fez a requisição
+    Necessário fornecer um token Bearer no Header
+    Use a rota /api/auth/token/ para recuperar o token
+    """
+
+    permission_classes = [
+        IsAuthenticated,
+    ]
+
+    @swagger_auto_schema(
+        responses={
+            status.HTTP_200_OK: "Usuário desativado",
+            status.HTTP_401_UNAUTHORIZED: "Token não informado ou inválido",
+        },
+    )
+    def post(self, request):
+        user = request.user
+        user.is_active = False
+        user.save()
+
+        return Response({"message": "Usuário desativado"}, status=status.HTTP_200_OK)
+
+
 class DecoratedTokenObtainPairView(TokenObtainPairView):
     """
     Token e refresh token do usuário
