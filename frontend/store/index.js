@@ -4,10 +4,14 @@ export const state = () => ({
 })
 
 export const mutations = {
-  toggleNav(state: any) {
+  toggleNav(state) {
     state.drawer = !state.drawer
   },
-  updateDrawer(state: any, value: any) {
+  updateDrawer(state, value) {
     state.drawer = value
+  },
+
+  toggleShowFormSignIn(state) {
+    state.showFormSignIn = !state.showFormSignIn
   },
 }

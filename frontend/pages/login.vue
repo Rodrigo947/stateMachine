@@ -1,7 +1,7 @@
 <template>
   <v-row class="fill-height no-gutters">
     <v-col md="7" class="align-center justify-center d-none d-md-flex">
-      <v-img max-height="325" max-width="440" src="#" />
+      <v-img max-height="500" max-width="440" src="logo.png" />
     </v-col>
     <v-col xs="12" md="5" class="bg_ice_white">
       <v-row class="fill-height no-gutters">
