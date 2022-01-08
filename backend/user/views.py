@@ -130,6 +130,7 @@ class UserDesactivate(APIView):
     Desativa o usuário
 
     Desativa o usuário que fez a requisição
+
     Necessário fornecer um token Bearer no Header
     Use a rota /api/auth/token/ para recuperar o token
     """
