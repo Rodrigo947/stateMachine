@@ -1,10 +1,10 @@
 <template>
-  <div>Logado</div>
+  <h1>State Machine</h1>
 </template>
 
 <script>
 export default {}
 </script>
 
-<style scoped>
+<style>
 </style>

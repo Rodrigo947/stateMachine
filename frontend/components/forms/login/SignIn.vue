@@ -1,12 +1,14 @@
 <template>
   <div class="min-width-300">
     <form @submit.prevent="login">
-      <h1 class="mb-3">Bem Vindo</h1>
+      <h1 class="mb-3">Bem-vindo</h1>
       <v-text-field
-        v-model="user.username"
+        v-model="user.email"
+        v-mask="maskCPFOrPIS"
         prepend-icon="mdi-account"
         label="E-mail, CPF ou PIS"
         required
+        @keyup="formatInputCPFOrPIS()"
       ></v-text-field>
 
       <v-text-field
@@ -37,16 +39,18 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import { mapMutations } from 'vuex'
+import validarCPF from '../../../utils/validarCPF'
+import validarPIS from '../../../utils/validarPIS'
 
-export default Vue.extend({
+export default {
   data: () => ({
     user: {
-      username: '',
+      email: '',
       password: '',
     },
+    maskCPFOrPIS: '',
     showPassword: false,
     loading: false,
   }),
@@ -55,8 +59,38 @@ export default Vue.extend({
     ...mapMutations({
       toggleShowFormSignIn: 'toggleShowFormSignIn',
     }),
+
+    async login() {
+      const userSend = {
+        ...this.user,
+      }
+      if (validarCPF(userSend.email) || validarPIS(userSend.email)) {
+        userSend.email = userSend.email.replace(/\./g, '').replace(/-/g, '')
+      }
+
+      this.loading = true
+      await this.$auth
+        .loginWith('local', { data: userSend })
+        .catch(() => {
+          this.$toast.error('Login incorreto')
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
+    formatInputCPFOrPIS() {
+      if (validarCPF(this.user.email)) {
+        this.maskCPFOrPIS = '###.###.###-##'
+        return 0
+      }
+      if (validarPIS(this.user.email)) {
+        this.maskCPFOrPIS = '###.#####.##-#'
+        return 0
+      }
+      this.maskCPFOrPIS = ''
+    },
   },
-})
+}
 </script>
 
 

@@ -22,7 +22,7 @@ export default {
     resetCode: false,
   }),
   head: {
-    title: 'Bem Vindo',
+    title: 'Bem-vindo',
   },
   computed: {
     showFormSignIn() {

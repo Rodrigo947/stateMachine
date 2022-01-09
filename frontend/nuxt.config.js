@@ -41,31 +41,26 @@ export default {
   auth: {
     strategies: {
       local: {
+        scheme: 'refresh',
         token: {
-          type: 'access',
-          maxAge: 18000,
+          property: 'access',
+        },
+        refreshToken: {
+          property: 'refresh',
+          data: 'refresh',
         },
         user: {
           property: false,
           autoFetch: true,
         },
         endpoints: {
-          login: {
-            url: '/accounts/login/',
-            method: 'post',
-          },
-          logout: {
-            url: '/accounts/logout/',
-            method: 'get',
-          },
-          user: {
-            url: '/accounts/users/me/',
-            method: 'get',
-          },
+          login: { url: '/auth/token/', method: 'post' },
+          refresh: { url: '/auth/token/refresh/', method: 'post' },
+          user: { url: '/user/me/', method: 'get' },
+          logout: false,
         },
       },
     },
-    rewriteRedirects: false,
     redirect: {
       login: '/login',
       logout: '/login',
@@ -79,11 +74,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: `${
-      process.env.TYPE_ENV === 'dev'
-        ? 'http://localhost:' + process.env.DJANGO_DEV_PORT
-        : 'https://' + process.env.FQDN + '/api'
-    }`,
+    baseURL: `http://localhost:${process.env.DJANGO_DEV_PORT || '9005'}/api/`,
   },
 
   toast: {

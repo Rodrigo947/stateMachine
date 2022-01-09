@@ -1,26 +1,26 @@
 <template>
   <div class="min-width-300">
-    <form @submit.prevent="login">
+    <v-form ref="form" v-model="valid" lazy-validation>
       <h1 class="mb-3">Cadastre-se</h1>
 
       <v-text-field
         v-model="user.first_name"
         :rules="rules.first_name"
-        label="Nome"
+        label="Nome *"
         required
       ></v-text-field>
 
       <v-text-field
         v-model="user.last_name"
         :rules="rules.last_name"
-        label="Sobrenome"
+        label="Sobrenome *"
         required
       ></v-text-field>
 
       <v-text-field
         v-model="user.email"
         :rules="rules.email"
-        label="E-mail"
+        label="E-mail *"
         required
       ></v-text-field>
 
@@ -28,7 +28,7 @@
         v-model="user.cpf"
         v-mask="'###.###.###-##'"
         :rules="rules.cpf"
-        label="CPF"
+        label="CPF *"
         required
       ></v-text-field>
 
@@ -36,46 +36,47 @@
         v-model="user.pis"
         v-mask="'###.#####.##-#'"
         :rules="rules.pis"
-        label="PIS"
+        label="PIS *"
         required
       ></v-text-field>
 
       <v-text-field
         v-model="user.password"
-        label="Senha"
+        label="Senha *"
         :rules="rules.password"
         required
-        prepend-icon="mdi-lock"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
         @click:append="showPassword = !showPassword"
       />
 
-      <v-row>
+      <v-row class="mt-3">
         <v-col class="align-center d-flex">
           <v-btn plain @click="toggleShowFormSignIn">Cancelar</v-btn>
         </v-col>
         <v-col class="align-center justify-end d-flex">
           <v-btn
-            type="submit"
             color="indigo darken-1 white--text"
             :loading="loading"
             :disabled="loading"
+            @click="cadastrar"
           >
             Registrar
           </v-btn>
         </v-col>
       </v-row>
-    </form>
+    </v-form>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import { mapMutations } from 'vuex'
+import validarCPF from '../../../utils/validarCPF'
+import validarPIS from '../../../utils/validarPIS'
 
-export default Vue.extend({
+export default {
   data: () => ({
+    valid: true,
     user: {
       first_name: '',
       last_name: '',
@@ -83,25 +84,23 @@ export default Vue.extend({
       cpf: '',
       pis: '',
       password: '',
-      repeat_password: '',
-      pais: '',
-      cep: '',
-      estado: '',
-      municipio: '',
-      rua: '',
-      numero: '',
-      complemento: '',
     },
     rules: {
-      first_name: [(v: string) => !!v || 'Nome é necessário'],
-      last_name: [(v: string) => !!v || 'Sobrenome é necessário'],
+      first_name: [(v) => !!v || 'Nome é necessário'],
+      last_name: [(v) => !!v || 'Sobrenome é necessário'],
       email: [
-        (v: string) => !!v || 'E-mail é necessário',
-        (v: string) => /.+@.+\..+/.test(v) || 'E-mail inválido',
+        (v) => !!v || 'E-mail é necessário',
+        (v) => /.+@.+\..+/.test(v) || 'E-mail inválido',
       ],
-      cpf: [(v: string) => !!v || 'CPF é necessário'],
-      pis: [(v: string) => !!v || 'PIS é necessário'],
-      password: [(v: string) => !!v || 'Senha é necessária'],
+      cpf: [
+        (v) => !!v || 'CPF é necessário',
+        (v) => validarCPF(v) || 'CPF inválido',
+      ],
+      pis: [
+        (v) => !!v || 'PIS é necessário',
+        (v) => validarPIS(v) || 'PIS inválido',
+      ],
+      password: [(v) => !!v || 'Senha é necessária'],
     },
     showPassword: false,
     loading: false,
@@ -111,8 +110,28 @@ export default Vue.extend({
     ...mapMutations({
       toggleShowFormSignIn: 'toggleShowFormSignIn',
     }),
+
+    async cadastrar() {
+      if (this.$refs.form.validate()) {
+        const userSend = {
+          ...this.user,
+          cpf: this.user.cpf.replace(/\./g, '').replace(/-/g, ''),
+          pis: this.user.pis.replace(/\./g, '').replace(/-/g, ''),
+        }
+
+        await this.$axios
+          .$post('signup/', userSend)
+          .then(() => {
+            this.toggleShowFormSignIn()
+            this.$toast.success('Usuário criado')
+          })
+          .catch((err) => {
+            this.$toast.error(err.response.data.message)
+          })
+      }
+    },
   },
-})
+}
 </script>
 
 

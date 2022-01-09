@@ -11,14 +11,12 @@
   </v-app>
 </template>
 
-<style scoped>
+<style>
 html {
-  overflow-y: auto !important;
+  overflow-y: hidden;
 }
-.bg-white {
-  background-color: white !important;
-}
+
 .bg_ice_white {
-  background-color: #f6f7ff !important;
+  background-color: #f6f7ff;
 }
 </style>
