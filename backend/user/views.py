@@ -34,7 +34,7 @@ class SignUp(APIView):
         responses={201: "Usuário criado", 400: "Usuário já existe"},
     )
     def post(self, request):
-        serializer = self.serializer_class(data=request.data, user=request.user)
+        serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
             if serializer.create(serializer.validated_data):
@@ -42,6 +42,7 @@ class SignUp(APIView):
 
             return Response({"message": "Usuário já existe"}, status=status.HTTP_400_BAD_REQUEST)
 
+        serializer.errors["message"] = "Dados incorretos"
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

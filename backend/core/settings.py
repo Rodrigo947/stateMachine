@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 TYPE_ENV = os.environ.get("TYPE_ENV") if os.environ.get("TYPE_ENV") else "dev"
@@ -17,8 +18,11 @@ DEBUG = True if TYPE_ENV == "dev" else False
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
+VUE_PORT = os.environ.get("VUE_PORT")
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
+    "http://localhost:3000",
+    f"http://localhost:{VUE_PORT}",
 ]
 
 INSTALLED_APPS = [
@@ -43,6 +47,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -132,4 +137,8 @@ AUTHENTICATION_BACKENDS = ["user.auth_backend.AuthBackend", "django.contrib.auth
 SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
     "SECURITY_DEFINITIONS": {"apiKey": {"type": "apiKey", "name": "Authorization", "in": "header"}},
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
 }
