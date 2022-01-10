@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="mb-3 mt-3">Dados de acesso</h3>
+    <h3 class="mb-3">Dados de acesso</h3>
     <v-row>
       <v-col cols="12" sm="12" md="6">
         <v-text-field v-model="email" label="E-mail" disabled></v-text-field>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Olá {{ name }} {{ lastName }}</h1>
+    <h1 class="mb-3">Olá {{ name }} {{ lastName }}</h1>
 
     <v-row>
       <v-col v-for="item in options" :key="item.name" cols="12" md="6">

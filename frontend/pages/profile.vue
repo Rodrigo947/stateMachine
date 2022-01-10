@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Perfil</h1>
+    <h1 class="mb-3">Perfil</h1>
     <FormsProfileAuth />
     <v-divider class="mb-3 mt-3"></v-divider>
     <FormsProfileGeneralInfo />
