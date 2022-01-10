@@ -93,3 +93,6 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["cpf", "pis", "password"]
 
     objects = UserManager()
+
+    class Meta:
+        db_table = "user"

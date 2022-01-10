@@ -1,5 +1,5 @@
 <template>
-  <h1>State Machine</h1>
+  <h1 class="mb-3">Máquinas de Estado</h1>
 </template>
 
 <script>

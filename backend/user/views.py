@@ -42,7 +42,6 @@ class SignUp(APIView):
 
             return Response({"message": "Usuário já existe"}, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer.errors["message"] = "Dados incorretos"
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -94,8 +93,6 @@ class UserEdit(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        serializer.errors["message"] = "Dados incorretos"
-        print(type(serializer.errors))
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
