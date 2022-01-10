@@ -1,7 +1,7 @@
 <template>
   <div class="min-width-300">
     <form @submit.prevent="login">
-      <h1 class="mb-3">Bem-vindo</h1>
+      <h1 class="mb-3">Olá visitante</h1>
       <v-text-field
         v-model="user.email"
         v-mask="maskCPFOrPIS"

@@ -20,8 +20,8 @@
           v-bind="attrs"
           v-on="on"
         >
-          {{ userEmail }}
-          <v-avatar color="indigo darken-2 white--text" size="38" right>
+          <span class="d-none d-sm-flex">{{ userEmail }}</span>
+          <v-avatar size="38" right>
             <v-icon dark> mdi-account-circle </v-icon>
           </v-avatar>
         </v-chip>
@@ -31,7 +31,7 @@
           <v-list-item-icon>
             <v-icon>fas fa-sign-out-alt</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Sair</v-list-item-title>
+          <v-list-item-title>Logout</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -58,8 +58,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.no-text-decoration {
-  text-decoration: none;
-}
-</style>

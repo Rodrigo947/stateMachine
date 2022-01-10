@@ -1,25 +1,19 @@
-<template><h1>Profile</h1></template>
+<template>
+  <div>
+    <h1>Perfil</h1>
+    <FormsProfileAuth />
+    <v-divider class="mb-3 mt-3"></v-divider>
+    <FormsProfileGeneralInfo />
+  </div>
+</template>
 
 <script>
-export default {}
+export default {
+  layout: 'default',
+  head: {
+    title: 'Perfil',
+  },
+}
 </script>
 
-<style>
-</style>
 
-    user: {
-      first_name: '',
-      last_name: '',
-      email: '',
-      cpf: '',
-      pis: '',
-      password: '',
-      repeat_password: '',
-      pais: '',
-      cep: '',
-      estado: '',
-      municipio: '',
-      rua: '',
-      numero: '',
-      complemento: '',
-    },

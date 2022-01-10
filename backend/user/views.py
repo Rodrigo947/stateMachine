@@ -93,6 +93,9 @@ class UserEdit(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+
+        serializer.errors["message"] = "Dados incorretos"
+        print(type(serializer.errors))
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -126,7 +129,7 @@ class UserChangePassword(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserDesactivate(APIView):
+class UserDeactivate(APIView):
     """
     Desativa o usuário
 

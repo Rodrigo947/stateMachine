@@ -30,6 +30,18 @@ class SignUpSerializer(serializers.Serializer):
 
 
 class UserMeSerializer(serializers.ModelSerializer):
+
+    first_name = serializers.CharField(max_length=30, required=True)
+    last_name = serializers.CharField(max_length=30, required=True)
+
+    pais = serializers.CharField(max_length=255, required=False)
+    estado = serializers.CharField(max_length=2, required=False)
+    municipio = serializers.CharField(max_length=255, required=False)
+    cep = serializers.CharField(max_length=8, required=False)
+    rua = serializers.CharField(max_length=255, required=False)
+    numero = serializers.CharField(max_length=255, required=False)
+    complemento = serializers.CharField(max_length=255, required=False)
+
     class Meta:
         model = user_model
         fields = [

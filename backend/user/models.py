@@ -42,13 +42,34 @@ class User(AbstractUser):
     pis = models.CharField(unique=True, max_length=11, editable=False)
 
     # Endereço
-    pais = models.CharField(max_length=255)
-    estado = models.CharField(max_length=255)
-    municipio = models.CharField(max_length=255)
-    cep = models.CharField(max_length=8)
-    rua = models.CharField(max_length=255)
-    numero = models.CharField(max_length=255)
-    complemento = models.CharField(max_length=255)
+    pais = models.CharField(
+        max_length=255,
+        blank=True,
+    )
+    estado = models.CharField(
+        max_length=2,
+        blank=True,
+    )
+    municipio = models.CharField(
+        max_length=255,
+        blank=True,
+    )
+    cep = models.CharField(
+        max_length=8,
+        blank=True,
+    )
+    rua = models.CharField(
+        max_length=255,
+        blank=True,
+    )
+    numero = models.CharField(
+        max_length=255,
+        blank=True,
+    )
+    complemento = models.CharField(
+        max_length=255,
+        blank=True,
+    )
 
     # Controle de acesso
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)

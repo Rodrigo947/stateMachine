@@ -61,7 +61,7 @@
             :disabled="loading"
             @click="cadastrar"
           >
-            Registrar
+            Cadastrar
           </v-btn>
         </v-col>
       </v-row>
@@ -125,8 +125,8 @@ export default {
             this.toggleShowFormSignIn()
             this.$toast.success('Usuário criado')
           })
-          .catch((err) => {
-            this.$toast.error(err.response.data.message)
+          .catch(() => {
+            this.$toast.error('Dados Incorretos')
           })
       }
     },

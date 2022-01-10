@@ -54,7 +54,7 @@ export default {
     },
     menu: {
       get() {
-        return this.$store.state.menu.menu
+        return this.$store.state.menu
       },
     },
   },

@@ -11,7 +11,7 @@
   </v-app>
 </template>
 
-<style>
+<style scoped>
 html {
   overflow-y: hidden;
 }
