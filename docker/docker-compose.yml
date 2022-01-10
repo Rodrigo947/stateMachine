@@ -72,6 +72,25 @@ services:
       state_machine_network:
         ipv4_address: ${DJANGO_IP}
 
+  frontend:
+    container_name: sm_frontend
+    build:
+      context: ../frontend
+      args:
+        TYPE_ENV: ${TYPE_ENV}
+    environment:
+      - TYPE_ENV=${TYPE_ENV}
+      - DJANGO_DEV_PORT=${DJANGO_PORT}
+      - VUE_PORT=${VUE_PORT}
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ../frontend:/code
+    ports:
+      - ${VUE_PORT}:${VUE_PORT}
+    networks:
+      state_machine_network:
+        ipv4_address: ${VUE_IP}
+
 networks:
   state_machine_network:
     driver: bridge
