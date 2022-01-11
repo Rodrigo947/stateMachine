@@ -24,6 +24,7 @@ $ docker-compose -p state_machine up -d
 
 ### sm_portainer
   Container para gerenciamento de Containers do Docker.
+  
   As credenciais devem ser geradas no momento que acessar o link.
   
   Link: http://localhost:9002/
@@ -32,33 +33,48 @@ $ docker-compose -p state_machine up -d
   Container para gerenciamento do banco de dados Postgres.
   
   Login: pgadmin@pgadmin.com
+  
   Senha: pgadmin
+  
   Link: http://localhost:9003/
 
 ### sm_postgres
   Contém o banco de dados relacional PostgreSQL
+  
   As credenciais devem ser geradas no momento que acessar o link.
   
   Database: db
+  
   User: postgres
+  
   Password: postgres
+  
   Host: 192.168.100.4
+  
   Porta: 9004
 
 ### sm_backend
   Ao iniciar esse Container uma API em Django é criada.
+  
   Um super usuário é criado e as migrations são executadas no momento do deploy.
+  
   Uma documentação das rotas está disponível para consulta apenas no ambiente de desenvolvimento.
   
   Login: django@django.com
+  
   Senha: django
+  
   Documentação Swagger: http://localhost:9005/swagger/
+  
   Documentação Redoc: http://localhost:9005/redoc/
 
 ### sm_frontend
   Por último, esse Container possui o frontend com NuxtJS.
+  
   As mesmas credenciais do super usuário pode ser usada.
   
   Login: django@django.com
+  
   Senha: django
-  Documentação Swagger: http://localhost:9006/
+  
+  Link: http://localhost:9006/
