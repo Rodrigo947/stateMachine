@@ -22,7 +22,7 @@ $ docker-compose -p state_machine up -d
 
 ## Informações gerais de cada Container
 
-OBS.: As informações de links e credencias só irão funcionar caso os valores das váriaveis de ambiente se mantiverem as mesmas do arquivo example.env
+OBS.: As informações de links e credencias abaixo só irão funcionar caso os valores das váriaveis de ambiente se mantiverem as mesmas do arquivo example.env
 
 ### sm_portainer
   Container para gerenciamento de Containers do Docker.
